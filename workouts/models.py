@@ -8,22 +8,28 @@ class Muscle(models.Model):
 
 class MuscleGroup(models.Model):
     name = models.CharField(max_length=255)
-    muscle_1 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_1')
-    muscle_2 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_2', null=True, blank=True)
-    muscle_3 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_3', null=True, blank=True)
-    muscle_4 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_4', null=True, blank=True)
-    muscle_5 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_5', null=True, blank=True)
-    muscle_6 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_6', null=True, blank=True)
-    muscle_7 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_7', null=True, blank=True)
-    muscle_8 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_8', null=True, blank=True)
-    muscle_9 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_9', null=True, blank=True)
-    muscle_10 = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='muscle_10', null=True, blank=True)
+    muscles = models.ManyToManyField(Muscle)
 
     def __str__(self):
         return self.name
 
 class ExerciseDifficulty(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+
+class MovementPlane(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+class Joint(models.Model):
+    name = models.CharField(max_length=100)
+    joint_type = models.ForeignKey('JointType', on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
@@ -35,33 +41,13 @@ class Movement(models.Model):
     agonist = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='agonist_muscle', null=True, blank=True)
     synergist = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='synergist_muscle', null=True, blank=True)
     antagonist = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='antagonist_muscle', null=True, blank=True)
-    joint_1 = models.ForeignKey('Joint', on_delete=models.PROTECT, related_name='joint_1', null=True, blank=True)
-    joint_2 = models.ForeignKey('Joint', on_delete=models.PROTECT, related_name='joint_2', null=True, blank=True)
+    joints = models.ManyToManyField(Joint)
 
     def __str__(self):
         return self.name
-
-class MovementPlane(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-class Joint(models.Model):
-    name = models.CharField(max_length=255)
-    joint_type = models.ForeignKey('JointType', on_delete=models.PROTECT)
-
-    def __str__(self):
-        return self.name
-
+        
 class JointType(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-class ContractionType(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -72,28 +58,32 @@ class JointNumber(models.Model):
     def __str__(self):
         return str(self.number)
 
+class ContractionType(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 class Sides(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 class Equipment(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 class Exercise(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=150)
     joint_number = models.ForeignKey('JointNumber', on_delete=models.PROTECT)
     sides = models.ForeignKey('Sides', on_delete=models.PROTECT)
-    movement_1 = models.ForeignKey('Movement', on_delete=models.PROTECT, related_name='movement_1')
-    movement_2 = models.ForeignKey('Movement', on_delete=models.PROTECT, related_name='movement_2', null=True, blank=True)
-    movement_3 = models.ForeignKey('Movement', on_delete=models.PROTECT, related_name='movement_3',null=True, blank=True)
+    movements = models.ManyToManyField(Movement)
     equipment = models.ForeignKey('Equipment', on_delete=models.PROTECT)
     cues = models.TextField()
-    video = models.URLField(max_length=200)
+    video = models.URLField(max_length=255)
     difficulty = models.ForeignKey('ExerciseDifficulty', on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
@@ -114,7 +104,7 @@ class WorkoutExercises(models.Model):
         return '{workout} - {exercise}'.format(workout=self.workout_plan, exercise=self.exercise)
 
 class WorkoutType(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100, help_text='Cardio, Met Con, Strength, Power, etc')
 
     def __str__(self):
         return self.name
@@ -138,13 +128,13 @@ class WorkoutPhase(models.Model):
         return self.name
 
 class SeasonPlanDuration(models.Model):
-    season_duration = models.FloatField()
+    months = models.FloatField()
 
     def __str__(self):
-        return self.season_duration
+        return str(self.months)
 
 class Activity(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100, help_text='Sport, PostRehab, Quality of Life, etc')
 
     def __str__(self):
         return self.name
