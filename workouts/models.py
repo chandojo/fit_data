@@ -19,8 +19,6 @@ class ExerciseDifficulty(models.Model):
     def __str__(self):
         return self.name
 
-
-
 class MovementPlane(models.Model):
     name = models.CharField(max_length=100)
 
@@ -29,14 +27,14 @@ class MovementPlane(models.Model):
 
 class Joint(models.Model):
     name = models.CharField(max_length=100)
-    joint_type = models.ForeignKey('JointType', on_delete=models.PROTECT)
+    joint_type = models.ForeignKey('JointType', on_delete=models.PROTECT, related_name='joints')
 
     def __str__(self):
         return self.name
 
 class Movement(models.Model):
     name = models.CharField(max_length=255)
-    movement_plane = models.ForeignKey('MovementPlane', on_delete=models.PROTECT)
+    movement_plane = models.ForeignKey('MovementPlane', on_delete=models.PROTECT, related_name='movement_planes')
     agonist_muscle_group = models.ForeignKey('MuscleGroup', on_delete=models.PROTECT, related_name='agonist_muscle_group',null=True, blank=True)
     agonist = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='agonist_muscle', null=True, blank=True)
     synergist = models.ForeignKey('Muscle', on_delete=models.PROTECT, related_name='synergist_muscle', null=True, blank=True)
@@ -45,7 +43,7 @@ class Movement(models.Model):
 
     def __str__(self):
         return self.name
-        
+
 class JointType(models.Model):
     name = models.CharField(max_length=100)
 
@@ -83,7 +81,7 @@ class Exercise(models.Model):
     movements = models.ManyToManyField(Movement)
     equipment = models.ForeignKey('Equipment', on_delete=models.PROTECT)
     cues = models.TextField()
-    video = models.URLField(max_length=255)
+    video_id = models.CharField(max_length=50)
     difficulty = models.ForeignKey('ExerciseDifficulty', on_delete=models.PROTECT, null=True, blank=True)
 
     def __str__(self):
@@ -91,6 +89,7 @@ class Exercise(models.Model):
 
 class WorkoutExercises(models.Model):
     exercise = models.ForeignKey('Exercise', on_delete=models.PROTECT)
+    exercise_order = models.CharField(max_length=4)
     sets = models.IntegerField()
     reps = models.FloatField()
     rep_duration = models.BooleanField(default=False)
@@ -98,7 +97,7 @@ class WorkoutExercises(models.Model):
     contraction_type = models.ForeignKey('ContractionType', on_delete=models.PROTECT)
     intensity = models.FloatField()
     intensity_percentage = models.BooleanField(default=False)
-    workout_plan = models.ForeignKey('Workout', on_delete=models.PROTECT)
+    workout_plan = models.ForeignKey('Workout', on_delete=models.PROTECT, related_name='workout_exercises')
 
     def __str__(self):
         return '{workout} - {exercise}'.format(workout=self.workout_plan, exercise=self.exercise)
@@ -155,12 +154,14 @@ class WorkoutDifficulty(models.Model):
 
 class Workout(models.Model):
     name = models.CharField(max_length=255)
-    workout_type = models.ForeignKey('WorkoutType', on_delete=models.PROTECT)
-    workout_duration = models.ForeignKey('WorkoutDuration', on_delete=models.PROTECT)
-    workout_frequency = models.ForeignKey('WorkoutFrequency', on_delete=models.PROTECT)
-    workout_phase = models.ForeignKey('WorkoutPhase', on_delete=models.PROTECT)
-    season_plan = models.ForeignKey('SeasonPlan', on_delete=models.PROTECT, null=True, blank=True)
-    workout_difficulty = models.ForeignKey('WorkoutDifficulty', on_delete=models.PROTECT)
+    workout_type = models.ForeignKey('WorkoutType', on_delete=models.PROTECT, related_name='workout_type')
+    workout_duration = models.ForeignKey('WorkoutDuration', on_delete=models.PROTECT, related_name='workout_duration')
+    workout_frequency = models.ForeignKey('WorkoutFrequency', on_delete=models.PROTECT, related_name='workout_frequency')
+    workout_phase = models.ForeignKey('WorkoutPhase', on_delete=models.PROTECT, related_name='workout_phase')
+    season_plan = models.ForeignKey('SeasonPlan', on_delete=models.PROTECT, null=True, blank=True, related_name='season_plan')
+    workout_difficulty = models.ForeignKey('WorkoutDifficulty', on_delete=models.PROTECT, related_name='workout_difficulty')
+    image = models.ImageField(upload_to='workouts/media', null=True, blank=True)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name

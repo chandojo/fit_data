@@ -42,12 +42,29 @@ class JointTypeProvider(BaseProvider):
     def random_joint_type(self):
         return self.fake_joint_type[random.randint(0, len(self.fake_joint_type)-1)]
 
-class JointProvider(BaseProvider):
-    fake_joint = ['elbow', 'sacroiliac', 'knee', 'ankle']
+class ContractionTypeProvider(BaseProvider):
+    fake_contraction_type = ['eccentric', 'concentric', 'isometric', 'isotonic', 'isokinetic']
 
-    def random_joint(self):
-        return self.fake_joint[random.randint(0, len(self.fake_joint)-1)]
+    def random_contraction_type(self):
+        return self.fake_contraction_type[random.randint(0, len(self.fake_contraction_type)-1)]
 
+class SidesProvider(BaseProvider):
+    fake_sides = ['bilateral', 'unilateral', 'left', 'right']
+
+    def random_sides(self):
+        return self.fake_sides[random.randint(0, len(self.fake_sides)-1)]
+
+class EquipmentProvider(BaseProvider):
+    fake_equipment = ['dumbbell', 'barbell', 'battle ropes', 'bodyweight', 'kettlebell', 'stability ball', 'bosu ball', 'bands']
+
+    def random_equipment(self):
+        return self.fake_equipment[random.randint(0, len(self.fake_equipment)-1)]
+
+class ExerciseProvider(BaseProvider):
+    fake_exercise = ['glute bridge', 'overhead press', 'goblet squat', 'push up', 'inverted row', 'walking lunge', 'box step-up']
+
+    def random_exercise(self):
+        return self.fake_exercise[random.randint(0, len(self.fake_exercise)-1)]
 
 fake.add_provider(MuscleProvider)
 fake.add_provider(MuscleGroupProvider)
@@ -55,4 +72,7 @@ fake.add_provider(ExerciseDifficultyProvider)
 fake.add_provider(MovementProvider)
 fake.add_provider(MovementPlaneProvider)
 fake.add_provider(JointTypeProvider)
-fake.add_provider(JointProvider)
+fake.add_provider(ContractionTypeProvider)
+fake.add_provider(SidesProvider)
+fake.add_provider(EquipmentProvider)
+fake.add_provider(ExerciseProvider)

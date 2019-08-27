@@ -2,6 +2,9 @@ from django.test import TestCase
 
 from rest_framework.test import APITestCase, APIRequestFactory, URLPatternsTestCase
 
+
+# TODO: Write mock request
+
 class APIRequestTestCase(APITestCase):
     def test_muscle_get_response(self):
         response = self.client.get('/muscles/')

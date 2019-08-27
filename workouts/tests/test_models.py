@@ -2,6 +2,8 @@ from django.test import TestCase
 from workouts.models import *
 from . import factories
 
+# TODO: Integration Tests on models
+
 class MuscleModelTestCase(TestCase):
     @classmethod
     def setUpClass(cls):
@@ -130,8 +132,11 @@ class MovementModelTestCase(TestCase):
     def test_movement_agonist_accurate(self):
         self.assertEqual(self.movement.agonist, self.fake_movement.agonist)
 
-    def test_movement_synergist_plane_accurate(self):
+    def test_movement_synergist_accurate(self):
         self.assertEqual(self.movement.synergist, self.fake_movement.synergist)
+
+    def test_movement_antagonist_accurate(self):
+        self.assertEqual(self.movement.antagonist, self.fake_movement.antagonist)
 
     @classmethod
     def tearDownClass(cls):
@@ -147,6 +152,11 @@ class MovementPlaneModelTestCase(TestCase):
         max_length = MovementPlane._meta.get_field('name').max_length
         self.assertEquals(max_length, 100)
 
+    def test_movement_plane_name_accurate(self):
+        fake_movement_plane = factories.MovementPlaneFactory()
+        movement_plane = MovementPlane.objects.get(pk=1)
+        self.assertEqual(movement_plane.name, fake_movement_plane.name)
+
 class JointModelTestCase(TestCase):
     def test_joint_name_label(self):
         field_label = Joint._meta.get_field('name').verbose_name
@@ -160,6 +170,11 @@ class JointModelTestCase(TestCase):
         field_label = Joint._meta.get_field('joint_type').verbose_name
         self.assertEquals(field_label, 'joint type')
 
+    def test_joint_name_accurate(self):
+        fake_joint = factories.JointFactory()
+        joint = Joint.objects.get(pk=1)
+        self.assertEqual(joint.name, fake_joint.name)
+
 class JointTypeModelTestCase(TestCase):
     def test_joint_type_name_label(self):
         field_label = JointType._meta.get_field('name').verbose_name
@@ -169,10 +184,20 @@ class JointTypeModelTestCase(TestCase):
         max_length = JointType._meta.get_field('name').max_length
         self.assertEquals(max_length, 100)
 
+    def test_joint_type_name_accurate(self):
+        fake_joint_type = factories.JointTypeFactory()
+        joint_type = JointType.objects.get(pk=1)
+        self.assertEqual(joint_type.name, fake_joint_type.name)
+
 class JointNumberModelTestCase(TestCase):
     def test_joint_number_number_label(self):
         field_label = JointNumber._meta.get_field('number').verbose_name
         self.assertEquals(field_label, 'number')
+
+    def test_joint_number_accurate(self):
+        fake_joint_number = factories.JointNumberFactory()
+        joint_number = JointNumber.objects.get(pk=1)
+        self.assertEquals(joint_number.number, fake_joint_number.number)
 
 class ContractionTypeModelTestCase(TestCase):
     def test_contraction_name_label(self):
@@ -183,6 +208,11 @@ class ContractionTypeModelTestCase(TestCase):
         max_length = ContractionType._meta.get_field('name').max_length
         self.assertEquals(max_length, 100)
 
+    def test_name_contraction_accurate(self):
+        fake_contraction_type = factories.ContractionTypeFactory()
+        contraction_type = ContractionType.objects.get(pk=1)
+        self.assertEquals(contraction_type.name, fake_contraction_type.name)
+
 class SidesModelTestCase(TestCase):
     def test_sides_name_label(self):
         field_label = Sides._meta.get_field('name').verbose_name
@@ -191,6 +221,11 @@ class SidesModelTestCase(TestCase):
     def test_name_max_length(self):
         max_length = Sides._meta.get_field('name').max_length
         self.assertEquals(max_length, 100)
+
+    def test_name_sides_accurate(self):
+        fake_sides = factories.SidesFactory()
+        sides = Sides.objects.get(pk=1)
+        self.assertEquals(sides.name, fake_sides.name)
 
 class EquipmentModelTestCase(TestCase):
     def test_equipment_name_label(self):
@@ -201,7 +236,18 @@ class EquipmentModelTestCase(TestCase):
         max_length = Equipment._meta.get_field('name').max_length
         self.assertEquals(max_length, 100)
 
+    def test_name_sides_accurate(self):
+        fake_equipment = factories.EquipmentFactory()
+        equipment = Equipment.objects.get(pk=1)
+        self.assertEquals(equipment.name, fake_equipment.name)
+
 class ExerciseModelTestCase(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.fake_exercise = factories.ExerciseFactory()
+        cls.exercise = Exercise.objects.get(pk=1)
+        super(ExerciseModelTestCase, cls).setUpClass()
+
     def test_exercise_name_label(self):
         field_label = Exercise._meta.get_field('name').verbose_name
         self.assertEquals(field_label, 'name')
@@ -231,16 +277,33 @@ class ExerciseModelTestCase(TestCase):
         self.assertEquals(field_label, 'cues')
 
     def test_video_label(self):
-        field_label = Exercise._meta.get_field('video').verbose_name
-        self.assertEquals(field_label, 'video')
+        field_label = Exercise._meta.get_field('video_id').verbose_name
+        self.assertEquals(field_label, 'video id')
 
     def test_name_max_length(self):
-        max_length = Exercise._meta.get_field('video').max_length
-        self.assertEquals(max_length, 255)
+        max_length = Exercise._meta.get_field('video_id').max_length
+        self.assertEquals(max_length, 50)
 
     def test_difficulty_label(self):
         field_label = Exercise._meta.get_field('difficulty').verbose_name
         self.assertEquals(field_label, 'difficulty')
+
+    def test_name_exercise_accurate(self):
+        self.assertEquals(self.exercise.name, self.fake_exercise.name)
+
+    def test_joint_number_exercise_accurate(self):
+        self.assertEquals(self.exercise.joint_number, self.fake_exercise.joint_number)
+
+    def test_sides_exercise_accurate(self):
+        self.assertEquals(self.exercise.sides, self.fake_exercise.sides)
+
+    def test_equipment_exercise_accurate(self):
+        self.assertEquals(self.exercise.equipment, self.fake_exercise.equipment)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.fake_exercise = None
+        cls.exercise = None
 
 class WorkoutExercisesModelTestCase(TestCase):
     def test_workout_exercises_name_label(self):
