@@ -18,7 +18,7 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = '/var/www/static/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 SECURE_HSTS_SECONDS = 60
 SECURE_CONTENT_TYPE_NOSNIFF = True

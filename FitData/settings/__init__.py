@@ -1,7 +1,6 @@
 import os
 import sys
 
-#TODO: Set up for Firebase
 
 if os.environ['ENV_IS_PROD'] == "True":
     from .prod import *
