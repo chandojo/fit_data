@@ -6,7 +6,7 @@ from .common import *
 SECRET_KEY = os.environ['FITNESS_SECRET_KEY']
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'fitnessinitiativedata.herokuapp.com']
 
 DATABASES = {
     'default': {
