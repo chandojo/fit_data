@@ -7,17 +7,6 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['fitnessinitiativedata.herokuapp.com',]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USERNAME'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOSTNAME'],
-        'PORT': os.environ['DB_PORT'],
-    }
-}
-
 SECURE_HSTS_SECONDS = 60
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER - True
