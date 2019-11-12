@@ -8,6 +8,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'fitnessinitiativedata.herokuapp.com']
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # For production: create whitelist to allow React frontend access to API
 CORS_ORIGIN_ALLOW_ALL=True
