@@ -112,3 +112,9 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'user_accounts.BlogAuthor'
+
+CKEDITOR_CONFIGS = {
+    'default':{
+        'extraAllowedContent': 'iframe[*]',
+    }
+}
