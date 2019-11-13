@@ -19,5 +19,4 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
-# Create whitelist to allow React frontend access to API. Should NOT be set to 'True' before deployment
-CORS_ORIGIN_ALLOW_ALL=False
+CORS_ORIGIN_WHITELIST = ['https://www.fitinitproj.com']
