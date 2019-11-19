@@ -20,5 +20,5 @@ CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
 CORS_ORIGIN_WHITELIST = [
-    'https://www.fitinitproj.com',
+    'https://www.fitinitproj.com'
 ]

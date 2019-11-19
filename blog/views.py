@@ -5,5 +5,5 @@ from .serializers import *
 from .models import *
 
 class BlogEntryViewSet(viewsets.ModelViewSet):
-	queryset = BlogEntry.objects.all()
+	queryset = BlogEntry.objects.order_by('-pub_date')
 	serializer_class = BlogEntrySerializer
