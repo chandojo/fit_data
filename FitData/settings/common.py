@@ -18,9 +18,19 @@ INSTALLED_APPS = [
     'corsheaders',
     'blog',
     'ckeditor',
+    'ckeditor_uploader',
     'taggit',
     'taggit_serializer',
 ]
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+    },
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -107,15 +117,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly'
     ],
-#    'DEFAULT_AUTHENTICATION_CLASSES':
-#        ('knox.auth.TokenAuthentication',)
-#
+    #    'DEFAULT_AUTHENTICATION_CLASSES':
+    #        ('knox.auth.TokenAuthentication',)
+    #
 }
 
 AUTH_USER_MODEL = 'user_accounts.BlogAuthor'
-
-CKEDITOR_CONFIGS = {
-    'default':{
-        'extraAllowedContent': 'iframe[*]',
-    }
-}

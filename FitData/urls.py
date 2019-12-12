@@ -6,11 +6,11 @@ from django.urls import path, include
 from rest_framework import routers
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('user_accounts.urls')),
     path('', include('blog.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('workouts.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
