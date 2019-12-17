@@ -7,4 +7,4 @@ class BlogAuthorFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.BlogAuthor
 
-    username = factory.Faker('user_name')
+    email = factory.Faker('email')

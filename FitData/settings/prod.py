@@ -6,7 +6,7 @@ import dj_database_url
 SECRET_KEY = os.environ['FITNESS_SECRET_KEY']
 DEBUG = False
 
-ALLOWED_HOSTS = ['fitnessinitiativedata.herokuapp.com',]
+ALLOWED_HOSTS = ['fitnessinitiativedata.herokuapp.com', ]
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)

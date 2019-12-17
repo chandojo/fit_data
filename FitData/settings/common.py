@@ -32,6 +32,8 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+DEFAULT_CHARSET = "utf-8"
+
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',

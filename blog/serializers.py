@@ -7,9 +7,10 @@ from taggit_serializer.serializers import (TagListSerializerField,
 
 
 class BlogEntrySerializer(TaggitSerializer, serializers.ModelSerializer):
-	author = serializers.CharField(source='author.username', read_only=True)
-	tags = TagListSerializerField()
-	
-	class Meta:
-		model = BlogEntry
-		fields = ['slug', 'id', 'title', 'author', 'pub_date', 'updated', 'content', 'tags', 'image']
+    author = serializers.CharField(source='author.name', read_only=True)
+    tags = TagListSerializerField()
+
+    class Meta:
+        model = BlogEntry
+        fields = ['slug', 'id', 'title', 'draft', 'author',
+                  'pub_date', 'updated', 'content', 'tags', 'image']

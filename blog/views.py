@@ -9,4 +9,4 @@ class BlogEntryViewSet(viewsets.ModelViewSet):
     queryset = BlogEntry.objects.all().order_by('-pub_date')
     serializer_class = BlogEntrySerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'tags__name']
+    search_fields = ['title', 'tags__name', 'slug']
