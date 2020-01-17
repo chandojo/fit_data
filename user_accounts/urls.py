@@ -1,13 +1,14 @@
 from django.urls import path, include
-from .api import RegisterAPI, LoginAPI, UserAPI
-from knox import views as knox_views
+from .views import BlogAuthorViewSet
 
-app_name='user_accounts'
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'blog-authors', BlogAuthorViewSet, basename='blogauthors')
+
+app_name = 'user_accounts'
 
 urlpatterns = [
-    path('api/auth', include('knox.urls')),
-    path('api/auth/register', RegisterAPI.as_view()),
-    path('api/auth/login', LoginAPI.as_view()),
-    path('api/auth/user', UserAPI.as_view()),
-    path('api/auth/logout', knox_views.LogoutView.as_view(), name='knox_logout'),
+    path('api/authors/', include(router.urls)),
+
 ]

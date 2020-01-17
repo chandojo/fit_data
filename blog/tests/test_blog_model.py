@@ -1,8 +1,9 @@
 import unittest
 from django.test import TestCase
 
-from .models import BlogEntry
+from ..models import BlogEntry
 from . import fakes
+
 
 class BlogEntryTestCase(TestCase):
     def test_entries_created(self):

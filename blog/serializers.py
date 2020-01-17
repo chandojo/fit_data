@@ -1,13 +1,13 @@
 from .models import *
 from .views import *
-
+from user_accounts.serializers import BlogAuthorSerializer
 from rest_framework import serializers
 from taggit_serializer.serializers import (TagListSerializerField,
                                            TaggitSerializer)
 
 
 class BlogEntrySerializer(TaggitSerializer, serializers.ModelSerializer):
-    author = serializers.CharField(source='author.name', read_only=True)
+    author = BlogAuthorSerializer(required=True)
     tags = TagListSerializerField()
 
     class Meta:

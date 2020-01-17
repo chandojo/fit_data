@@ -5,7 +5,7 @@ from .serializers import *
 from .models import *
 
 
-class BlogEntryViewSet(viewsets.ModelViewSet):
+class BlogEntryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = BlogEntry.objects.all().order_by('-pub_date')
     serializer_class = BlogEntrySerializer
     filter_backends = [filters.SearchFilter]

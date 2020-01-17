@@ -3,7 +3,7 @@ import factory
 from unittest.mock import Mock
 from datetime import datetime
 from django.utils.timezone import make_aware
-from . import models
+from .. import models
 
 
 class BlogEntryFactory(factory.django.DjangoModelFactory):

@@ -1,6 +1,6 @@
 import factory
 
-from . import models
+from .. import models
 
 
 class BlogAuthorFactory(factory.django.DjangoModelFactory):
@@ -8,3 +8,5 @@ class BlogAuthorFactory(factory.django.DjangoModelFactory):
         model = models.BlogAuthor
 
     email = factory.Faker('email')
+    name = factory.Faker('name')
+    bio = factory.Faker('paragraph', nb_sentences=3)
