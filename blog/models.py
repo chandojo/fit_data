@@ -19,7 +19,7 @@ class BlogEntry(models.Model):
     content = RichTextUploadingField()
     tags = TaggableManager(blank=True)
     image = models.ImageField(upload_to='article_image', null=True, blank=True)
-    slug = models.SlugField(blank=True, unique=True)
+    slug = models.SlugField(blank=True, unique=True, max_length=100)
 
     def save(self, *args, **kwargs):
         if not self.id:

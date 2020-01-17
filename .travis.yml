@@ -1,17 +1,20 @@
 language: python
 python:
- - "3.7"
+- '3.7'
 services:
- - postgresql
-before_install:
- - export DATABASE_URL=postgres://postgres@localhost/travisdb
+- postgresql
 env:
- - DJANGO_VERSION=2.2.4 DB=prostgresql
+  matrix:
+  - DJANGO_VERSION=2.2.8 DB=prostgresql ENV_IS_PROD=True DATABASE_URL=postgres://postgres@localhost/travis_ci_test
+  global:
+    - secure: "VFs4nxaaON5NqveOu6zc7YwwXQS42YZOeyGchR0gCRQfH0y/iebNvfhyuE1izlnPfPXxeVk7ISzeAimkEPNMG3jp3DadyhI1XAF+i/cv5IjsJAwdOe95n8HoDoUg6ggrVByoNBjrA4PLtGwRoIM1GXxuNEbJTFW2DjcYSG7/SQLlBCpNqWiLEy/9VAmHXFchUAjHc16Up7AwApcFwVM3jzwL5y4UwCtuXcvRfghzGZ1w02sdqVrEvBMZ60LWJmt6+aAGz3H9ghj9g8iVyAUX0mAcJ7vx78UNfuTq6Pgm0Lq2rfyyFaYCOnjHYshPuNWOhKXn2/NIVlXHebuZ7/hTb+RiaO5jxQE4HSe154L0L9hGktyrOBNPfmnDGCsTGQfos8zdrnFdjpVn7TEatzvpVuw6PQuqtxj4fcUMOenGJp0Nr6JCs8LoEyqp98btBGyb3N5Rlhqu1ocR5p3tDS0CRCkZ1CRHleIJZsPwcQrFfZxYU9QjO/4JkN6GS6XqYg5ke+ccJttiEPvB3tnfQoslT7TWdzpdm9IT1iUzU6BdvS27itvJt580vM1tZimLhTpCqz9ulWxWcnvBucFvwpuyUG+TFInk8jX97J9Su7wA0jy2xFaKgqHOqGZf/OLS8uSVbeYIVO/Ljy/RkSJdejrJLl4hG1qQ35TsxQwW/Fj59hQ="
 install:
- - pip install -r requirements.txt 
-before script:
- - psql -c "CREATE DATABASE travisdb;" -U postgres
- - python manage.py migrate --noinput
+  - pip install -r requirements.txt
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
 script:
- - python manage.py test
-
+  - python manage.py migrate
+  - coverage run manage.py test
+  - coverage report
+after_success:
+  - coveralls

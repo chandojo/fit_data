@@ -10,7 +10,7 @@ class BlogEntryFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.BlogEntry
 
-    title = factory.Faker('text')
+    title = factory.Faker('text', max_nb_chars=100)
     draft = False
     pub_date = make_aware(datetime.now())
     updated = datetime.now()
