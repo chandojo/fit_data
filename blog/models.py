@@ -14,7 +14,7 @@ class BlogEntry(models.Model):
     author = models.ForeignKey(Author, on_delete=models.PROTECT, null=True)
     draft = models.BooleanField(default=False)
     pub_date = models.DateTimeField(
-        auto_now=False, auto_now_add=False, blank=True)
+        auto_now=False, auto_now_add=False, null=True, blank=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
     content = RichTextUploadingField()
     tags = TaggableManager(blank=True)
