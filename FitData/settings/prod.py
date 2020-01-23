@@ -2,6 +2,7 @@ import os
 from os import environ
 from .common import *
 import dj_database_url
+from FitData.aws.conf import *
 
 SECRET_KEY = os.environ['FITNESS_SECRET_KEY']
 DEBUG = False
@@ -20,5 +21,7 @@ CSRF_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
 CORS_ORIGIN_WHITELIST = [
-    'https://www.fitinitproj.com'
+    'https://www.fitinitproj.com',
+    'https://pptathlete.com',
+    'https://www.pptathlete.com'
 ]

@@ -9,6 +9,19 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
                  'fitnessinitiativedata.herokuapp.com']
 
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_URL = '/static/'
+#
+# STATICFILE_DIRS = (
+#    os.path.join(BASE_DIR, 'static')
+# )
+#
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_URL = '/media/'
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

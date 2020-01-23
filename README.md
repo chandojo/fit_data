@@ -1,2 +1,2 @@
-[![Build Status](https://travis-ci.org/chandojo/fitData.svg?branch=master)](https://travis-ci.org/chandojo/fitData)
-[![Coverage Status](https://coveralls.io/repos/github/chandojo/fitData/badge.svg)](https://coveralls.io/github/chandojo/fitData)
+[![Build Status](https://travis-ci.org/chandojo/fit_data.svg?branch=master)](https://travis-ci.org/chandojo/fit_data)
+[![Coverage Status](https://coveralls.io/repos/github/chandojo/fit_data/badge.svg?branch=master)](https://coveralls.io/github/chandojo/fit_data?branch=master)
