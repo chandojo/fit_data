@@ -1,13 +1,11 @@
-import unittest
-
-from rest_framework.test import APITestCase, RequestsClient
+from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 
-
-client = RequestsClient()
+client = APIClient()
 
 
 class AuthAPITestCase(APITestCase):
-    def test_get_blogauthors_success(self):
-        response = client.get('http://testserver/api/authors/blog-authors')
+    def test_get_blogauthorsagain_success(self):
+        response = client.get(
+            '/api/authors/blog-authors/', allow_redirects=False)
         self.assertEqual(response.status_code, status.HTTP_200_OK)

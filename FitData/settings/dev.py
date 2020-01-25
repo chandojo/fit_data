@@ -3,7 +3,7 @@ from os import environ
 from .common import *
 
 
-SECRET_KEY = os.environ['FITNESS_SECRET_DEV_KEY']
+SECRET_KEY = os.environ['FITNESS_SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
